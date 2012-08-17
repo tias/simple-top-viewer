@@ -1,0 +1,2 @@
+# m h  dom mon dow   command
+4-59/5 *   *   *   *    ls /home/tias/www/pinacs/ > /dev/null 2>&1 && /home/tias/www/pinacs/stats.py
