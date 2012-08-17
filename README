@@ -1,0 +1,23 @@
+Simple Top Viewer
+-----------------
+
+This is a simple package for viewing the 'top' output of multiple machines on a single wegpage.
+
+It works as follows:
+
+* it assumes all machines have access to the same directory (e.g. NFS mounted)
+* crontab.txt contains a crontab entry that needs to be set on each monitored machine (no root required)
+* stats.py is run by crontab on each machine separately, it writes the output of 'top' to a <machine>.dat file (in the shared directory)
+* index.php reads all .dat files and shows an overview in HTML
+
+
+This code is a dump from what has been running in [our research group](http://dtai.cs.kuleuven.be/) for years. Many things are configurable but currently inlined, as that is how the code grew.
+
+
+How to test
+-----------
+* Unpack in a working folder of your (php-aware) webserver
+* run ./stats.py to generate at least one .dat file
+* browse to the correct location on your webserver
+
+Improvements and patches welcome.
