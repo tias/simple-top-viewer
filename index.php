@@ -94,7 +94,9 @@ for ($i = count($families); $i >= 0; $i--) {
         // too much load, probably swapping, warn
         $tr_prop = ' class="error"';
       }
-      if (floatval($myload) < 0.1)
+      if (floatval($cpu[$key]) < 0.1 &&
+          floatval($mem[$key]) < 0.1 &&
+          floatval($myload) < 0.1)
         $tr_prop = ' class="success"';
 
       printf('<tr%s><td>%s</td><td><a href="#%s">%s</a></td><td>%s</td><td>%s</td><td><i>%s</i></td><td>%s</td></tr>',
