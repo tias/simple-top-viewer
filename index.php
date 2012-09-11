@@ -146,6 +146,11 @@ print('</div>');
 
 
 ?>
+
+<div class="left">
+<b>Source code</b> of this tool available on: <a href="https://github.com/tias/simple-top-viewer">https://github.com/tias/simple-top-viewer</a>
+</div>
+
 </body>
 
 </html>
