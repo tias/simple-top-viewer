@@ -4,7 +4,7 @@
   <title>PINAC stati</title>
   <meta http-equiv="refresh" content="300" >
   <link href="css/bootstrap.min.css" rel="stylesheet">
-  <!-- <link rel="stylesheet" type="text/css" href="css/style.css" media="screen" /> -->
+  <link rel="stylesheet" type="text/css" href="css/style.css" media="screen" />
  </head>
 
 <body>
@@ -53,8 +53,6 @@ $all = array_keys($cpu);
 print('<div class="box">Basic rules: always leave room for someone to join the party, avoid <a href="http://en.wikipedia.org/wiki/Load_(computing)">high load</a></div>');
 
 print('<div class="left"><h3>Available machines</h3>');
-print('<table border="1">');
-print('<tr><td>&nbsp;</td><td>&nbsp;</td><td width="80px">% CPU</td><td width="80px">% MEM</td><td width="50px">Load</td><td colspan="9">Users <i>(bold = cpu-intensive process)</i> </td></tr>');
 $c = 1;
 for ($i = count($families); $i >= 0; $i--) {
   // filter families
@@ -67,7 +65,11 @@ for ($i = count($families); $i >= 0; $i--) {
   }
 
   // filler above families
-  printf('<tr><td colspan=14 style="padding: 4px 0 4px 30px">%s</td></tr>', $families_notes[$i]);
+  printf('<div><h4>%s</h4>', $families_notes[$i]);
+
+  // start table
+  print('<table border="1">');
+  print('<tr><th>&nbsp;</th><th>&nbsp;</th><th width="80px">% CPU</th><th width="80px">% MEM</th><th width="50px">Load</th><th colspan="9">Users <i>(bold = cpu-intensive process)</i> </th></tr>');
 
   // the loop
   foreach($todo as $key) {
@@ -96,8 +98,10 @@ for ($i = count($families); $i >= 0; $i--) {
       //      <td>'.$key.'</td><td>'.$mem_keys[$key].'</td><td>'.$mem[$mem_keys[$key]].'</td><tr>');
     }
   }
+
+  print('</table></div>');
 }
-print('</table> <p /></div>');
+print('</div>');
 
 if (count($top_users) != 0) {
     arsort($top_users);
