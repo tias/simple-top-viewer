@@ -111,7 +111,7 @@ print('</div>');
 
 if (count($top_users) != 0) {
     arsort($top_users);
-    print('<div class="right"><h3>Top users</h3><ol>');
+    print('<div class="right"><h3>Top users</h3><ol class="unstyled">');
     foreach ($top_users as $u => $c) {
         if ($u != '')
             print('<li><i>'.$u.'</i>: '.$c.' processes</li>');
