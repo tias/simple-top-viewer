@@ -68,7 +68,7 @@ for ($i = count($families); $i >= 0; $i--) {
   printf('<div><h4>%s</h4>', $families_notes[$i]);
 
   // start table
-  print('<table class="table table-bordered table-striped table-condensed">');
+  print('<table class="table table-bordered table-condensed">');
   print('<tr><th>&nbsp;</th><th>&nbsp;</th><th>%CPU</th><th>%MEM</th><th>Load</th><th colspan="9">Users <i>(bold = cpu-intensive process)</i> </th></tr>');
 
   // the loop
@@ -85,14 +85,20 @@ for ($i = count($families); $i >= 0; $i--) {
     if ($time_local - round(@$time[$key]) > 590) {
       array_push($not_responding, $key);
     } else {
+      // property of TR (class="success, error, warning, info")
+      $tr_prop = '';
 
       $myload = $load[$key][0];
       $myusers = count($users[$key]);
-      if ($myusers < floatval($myload)*0.8) {
+      if ($myusers < floatval($myload)*0.75) {
         // too much load, probably swapping, warn
-        $myload = sprintf('<div style="color: maroon">%s</div>',$myload);
+        $tr_prop = ' class="error"';
       }
-      printf('<tr><td>%s</td><td><a href="#%s">%s</a></td><td>%s</td><td>%s</td><td><i>%s</i></td><td>%s</td></tr>',
+      if (floatval($myload) < 0.1)
+        $tr_prop = ' class="success"';
+
+      printf('<tr%s><td>%s</td><td><a href="#%s">%s</a></td><td>%s</td><td>%s</td><td><i>%s</i></td><td>%s</td></tr>',
+              $tr_prop,
               $c++, $key, $key, $cpu[$key], $mem[$key], $myload, substr($uss, 0, -2));
       //print('<tr><td>'.$key.'</td><td><a href="'.$value.'</td><td>'.$cpu[$value].'</td>
       //      <td>'.$key.'</td><td>'.$mem_keys[$key].'</td><td>'.$mem[$mem_keys[$key]].'</td><tr>');
