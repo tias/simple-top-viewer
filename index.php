@@ -50,7 +50,7 @@ $not_responding = array();
 $top_users = array();
 $all = array_keys($cpu);
 
-print('<div class="box">Basic rules: always leave room for someone to join the party, avoid <a href="http://en.wikipedia.org/wiki/Load_(computing)">high load</a></div>');
+print('<div class="btn btn-large btn-block disabled" type="button"><b>Basic rules:</b> always leave room for someone to join the party, avoid <a href="http://en.wikipedia.org/wiki/Load_(computing)">high load</a></div>');
 
 print('<div class="left"><h3>Available machines</h3>');
 $c = 1;
