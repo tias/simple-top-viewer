@@ -1,8 +1,10 @@
+<!DOCTYPE html>
 <html>
  <head>
   <title>PINAC stati</title>
   <meta http-equiv="refresh" content="300" >
-  <link rel="stylesheet" type="text/css" href="style.css" media="screen" />
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="css/style.css" media="screen" />
  </head>
 
 <body>
@@ -39,8 +41,8 @@ $families = array( 1 => array('pinac11', 'pinac12', 'pinac13', 'pinac14', 'pinac
                  );
 
 $families_notes = array( 0 => 'Various desktop PCs that are (seemingly) not used as such', // machines not in a family
-                         1 => '4-thread machines <a title="1-socket 4-core 4-thread">[1-4-4]</a>',
-                         2 => '8-thread machines <a title="1-socket 4-core 8-thread">[1-4-8]</a>');
+                         1 => '4-thread machines <abbr title="1-socket 4-core 4-thread">[1-4-4]</abbr>',
+                         2 => '8-thread machines <abbr title="1-socket 4-core 8-thread">[1-4-8]</abbr>');
 
 asort($cpu);
 $time_local = time();
@@ -48,11 +50,9 @@ $not_responding = array();
 $top_users = array();
 $all = array_keys($cpu);
 
-print('<div class="box">Basic rules: always leave room for someone to join the party, avoid <a href="http://en.wikipedia.org/wiki/Load_(computing)">high load</a></div>');
+print('<div class="btn btn-large btn-block disabled" type="button"><b>Basic rules:</b> always leave room for someone to join the party, avoid <a href="http://en.wikipedia.org/wiki/Load_(computing)">high load</a></div>');
 
 print('<div class="left"><h3>Available machines</h3>');
-print('<table border="1">');
-print('<tr><td>&nbsp;</td><td>&nbsp;</td><td width="80px">% CPU</td><td width="80px">% MEM</td><td width="50px">Load</td><td colspan="9">Users <i>(bold = cpu-intensive process)</i> </td></tr>');
 $c = 1;
 for ($i = count($families); $i >= 0; $i--) {
   // filter families
@@ -65,7 +65,11 @@ for ($i = count($families); $i >= 0; $i--) {
   }
 
   // filler above families
-  printf('<tr><td colspan=14 style="padding: 4px 0 4px 30px">%s</td></tr>', $families_notes[$i]);
+  printf('<div><h4>%s</h4>', $families_notes[$i]);
+
+  // start table
+  print('<table class="table table-bordered table-condensed">');
+  print('<tr><th>&nbsp;</th><th>&nbsp;</th><th>%CPU</th><th>%MEM</th><th>Load</th><th colspan="9">Users <i>(bold = cpu-intensive process)</i> </th></tr>');
 
   // the loop
   foreach($todo as $key) {
@@ -81,25 +85,35 @@ for ($i = count($families); $i >= 0; $i--) {
     if ($time_local - round(@$time[$key]) > 590) {
       array_push($not_responding, $key);
     } else {
+      // property of TR (class="success, error, warning, info")
+      $tr_prop = '';
 
       $myload = $load[$key][0];
       $myusers = count($users[$key]);
-      if ($myusers < floatval($myload)*0.8) {
+      if ($myusers < floatval($myload)*0.75) {
         // too much load, probably swapping, warn
-        $myload = sprintf('<div style="color: maroon">%s</div>',$myload);
+        $tr_prop = ' class="error"';
       }
-      printf('<tr><td>%s</td><td><a href="#%s">%s</a></td><td>%s</td><td>%s</td><td><i>%s</i></td><td>%s</td></tr>',
+      if (floatval($cpu[$key]) < 0.1 &&
+          floatval($mem[$key]) < 0.1 &&
+          floatval($myload) < 0.1)
+        $tr_prop = ' class="success"';
+
+      printf('<tr%s><td>%s</td><td><a href="#%s">%s</a></td><td>%s</td><td>%s</td><td><i>%s</i></td><td>%s</td></tr>',
+              $tr_prop,
               $c++, $key, $key, $cpu[$key], $mem[$key], $myload, substr($uss, 0, -2));
       //print('<tr><td>'.$key.'</td><td><a href="'.$value.'</td><td>'.$cpu[$value].'</td>
       //      <td>'.$key.'</td><td>'.$mem_keys[$key].'</td><td>'.$mem[$mem_keys[$key]].'</td><tr>');
     }
   }
+
+  print('</table></div>');
 }
-print('</table> <p /></div>');
+print('</div>');
 
 if (count($top_users) != 0) {
     arsort($top_users);
-    print('<div class="right"><h3>Top users</h3><ol>');
+    print('<div class="right"><h3>Top users</h3><ol class="unstyled">');
     foreach ($top_users as $u => $c) {
         if ($u != '')
             print('<li><i>'.$u.'</i>: '.$c.' processes</li>');
@@ -122,12 +136,13 @@ if (true) {
 
 print('<div class="left"><h3>Detailed machine information</h3>');
 ksort($output);
-print('<table border="1">');
 foreach ($output as $key => $value) {
-    print('<tr><td colspan=6><a name="'.$key.'">&nbsp;</a></td></tr>');
+    print('<a name="'.$key.'"><h4>'.$key.'</h4></a>');
+    print('<table class="table table-bordered table-condensed">');
     print($value);
+    print('</table>');
 }
-print('</table></div>');
+print('</div>');
 
 
 ?>
