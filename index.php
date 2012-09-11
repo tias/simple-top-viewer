@@ -1,8 +1,10 @@
+<!DOCTYPE html>
 <html>
  <head>
   <title>PINAC stati</title>
   <meta http-equiv="refresh" content="300" >
-  <link rel="stylesheet" type="text/css" href="style.css" media="screen" />
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <!-- <link rel="stylesheet" type="text/css" href="css/style.css" media="screen" /> -->
  </head>
 
 <body>
