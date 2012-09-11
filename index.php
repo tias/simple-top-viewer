@@ -41,8 +41,8 @@ $families = array( 1 => array('pinac11', 'pinac12', 'pinac13', 'pinac14', 'pinac
                  );
 
 $families_notes = array( 0 => 'Various desktop PCs that are (seemingly) not used as such', // machines not in a family
-                         1 => '4-thread machines <a title="1-socket 4-core 4-thread">[1-4-4]</a>',
-                         2 => '8-thread machines <a title="1-socket 4-core 8-thread">[1-4-8]</a>');
+                         1 => '4-thread machines <abbr title="1-socket 4-core 4-thread">[1-4-4]</abbr>',
+                         2 => '8-thread machines <abbr title="1-socket 4-core 8-thread">[1-4-8]</abbr>');
 
 asort($cpu);
 $time_local = time();
