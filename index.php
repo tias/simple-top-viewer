@@ -68,8 +68,8 @@ for ($i = count($families); $i >= 0; $i--) {
   printf('<div><h4>%s</h4>', $families_notes[$i]);
 
   // start table
-  print('<table border="1">');
-  print('<tr><th>&nbsp;</th><th>&nbsp;</th><th width="80px">% CPU</th><th width="80px">% MEM</th><th width="50px">Load</th><th colspan="9">Users <i>(bold = cpu-intensive process)</i> </th></tr>');
+  print('<table class="table table-bordered table-striped table-condensed">');
+  print('<tr><th>&nbsp;</th><th>&nbsp;</th><th>%CPU</th><th>%MEM</th><th>Load</th><th colspan="9">Users <i>(bold = cpu-intensive process)</i> </th></tr>');
 
   // the loop
   foreach($todo as $key) {
