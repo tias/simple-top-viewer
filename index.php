@@ -136,12 +136,13 @@ if (true) {
 
 print('<div class="left"><h3>Detailed machine information</h3>');
 ksort($output);
-print('<table border="1">');
 foreach ($output as $key => $value) {
-    print('<tr><td colspan=6><a name="'.$key.'">&nbsp;</a></td></tr>');
+    print('<a name="'.$key.'"><h4>'.$key.'</h4></a>');
+    print('<table class="table table-bordered table-condensed">');
     print($value);
+    print('</table>');
 }
-print('</table></div>');
+print('</div>');
 
 
 ?>
