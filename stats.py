@@ -44,6 +44,7 @@ for proc in procs:
      (d[0] == 'root' and d[5] == '/USR/SBIN/CRON') or \
      (d[0] == 'root' and d[5] == 'CRON') or \
      d[5] == '/sbin/plymouthd' or \
+     d[5] == '/usr/sbin/unity-greeter' or \
      (d[0] == 'tias' and d[5] == '[head]') or \
      (d[0] == 'tias' and d[5] == 'head' and d[6] == '-n') or \
      (d[0] == 'tias' and d[5] == 'ps' and d[6] == 'axw') or \
