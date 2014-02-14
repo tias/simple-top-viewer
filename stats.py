@@ -20,7 +20,7 @@ uptime = Popen("uptime", shell=True, stdout=PIPE, stderr=STDOUT, close_fds=True)
 output += "<tr><td colspan=\"6\">%s</td></tr>"%uptime
 load = uptime.split('load average: ')[1].split(', ')
 
-procs = Popen("ps axw -o user,nice,pcpu,pmem,etime,args --sort -pcpu | head -n %i"%(NUMPROCS+3), shell=True, stdout=PIPE, stderr=STDOUT, close_fds=True).communicate()[0].strip().split("\n")
+procs = Popen("ps axw -o user:25,nice,pcpu,pmem,etime,args --sort -pcpu | head -n %i"%(NUMPROCS+3), shell=True, stdout=PIPE, stderr=STDOUT, close_fds=True).communicate()[0].strip().split("\n")
 #p = Popen("top -c -b -n1 | head -n14", shell=True, stdout=PIPE, stderr=STDOUT, close_fds=True)
 #procs = p.stdout.readlines()
 #procs = commands.getoutput("top -b -n1 | head -15").split("\n")
@@ -45,6 +45,7 @@ for proc in procs:
      (d[0] == 'root' and d[5] == 'CRON') or \
      d[5] == '/sbin/plymouthd' or \
      d[5] == '/usr/sbin/unity-greeter' or \
+     (d[0] == 'tias' and d[5] == 'crond') or \
      (d[0] == 'tias' and d[5] == '[head]') or \
      (d[0] == 'tias' and d[5] == 'head' and d[6] == '-n') or \
      (d[0] == 'tias' and d[5] == 'ps' and d[6] == 'axw') or \
@@ -79,7 +80,7 @@ ncpus = os.sysconf("SC_NPROCESSORS_ONLN")
 totcpu = totcpu/ncpus
 
 p = Popen("hostname", shell=True, stdout=PIPE, close_fds=True)
-hostname = p.stdout.readline().strip()
+hostname = p.stdout.readline().strip().lower()
 #hostname = commands.getoutput("hostname")
 output = "<tr><td colspan=\"6\"><b>%s</b> (CPU:%s%% - MEM:%s%%)</td></tr>"%(hostname, totcpu,totmem)+output
 
