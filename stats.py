@@ -3,6 +3,8 @@
 
 #import commands
 from subprocess import *
+import sys
+import getpass
 import os
 import time
 
@@ -39,19 +41,21 @@ for proc in procs:
   #cols = [1,3,8,9,10,11]
   #d = [dd[i] for i in cols]
 
+  this_user = getpass.getuser()
+  this_script = os.path.abspath(__file__)
   # ignore 0% cpu comands and cron, plymouth as well as this script
   if (d[2] != '%CPU' and float(d[2]) == 0) or \
      (d[0] == 'root' and d[5] == '/USR/SBIN/CRON') or \
      (d[0] == 'root' and d[5] == 'CRON') or \
      d[5] == '/sbin/plymouthd' or \
      d[5] == '/usr/sbin/unity-greeter' or \
-     (d[0] == 'tias' and d[5] == 'crond') or \
-     (d[0] == 'tias' and d[5] == '[head]') or \
-     (d[0] == 'tias' and d[5] == 'head' and d[6] == '-n') or \
-     (d[0] == 'tias' and d[5] == 'ps' and d[6] == 'axw') or \
-     (d[0] == 'tias' and d[5] == '/bin/sh' and d[7] == 'ps' and d[8] == 'axw') or \
-     d[-1] == '/home/tias/www/pinacs/stats.py' or \
-     (d[5] == '/usr/bin/python' and d[6] == '/home/tias/www/pinacs/stats.py'):
+     (d[0] == this_user and d[5] == 'crond') or \
+     (d[0] == this_user and d[5] == '[head]') or \
+     (d[0] == this_user and d[5] == 'head' and d[6] == '-n') or \
+     (d[0] == this_user and d[5] == 'ps' and d[6] == 'axw') or \
+     (d[0] == this_user and d[5] == '/bin/sh' and d[7] == 'ps' and d[8] == 'axw') or \
+     d[-1] == this_script or \
+     (d[5] == '/usr/bin/python' and d[6] == this_script):
     continue
 
   # busy process in bold
