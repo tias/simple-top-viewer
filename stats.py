@@ -80,7 +80,7 @@ totcpu = totcpu/ncpus
 p = Popen("hostname", shell=True, stdout=PIPE, close_fds=True)
 hostname = p.stdout.readline().strip()
 #hostname = commands.getoutput("hostname")
-output = "<tr><td colspan=\"6\"><b>%s</b> (CPU:%s%% - MEM:%s%%)</td></tr>"%(hostname, totcpu,totmem)+output
+output = "<tr><td colspan=\"6\"><b>%s</b> (CPU:%s%% - MEM:%s%%)</td></tr>"%(hostname, round(totcpu,1),totmem)+output
 
 f = open("%s/%s.%s"%(DIR,hostname,EXT), "w")
 f.write("<?php\n")
