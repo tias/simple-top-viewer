@@ -126,7 +126,6 @@ if (count($top_users) != 0) {
 if (true) {
     sort($not_responding);
     print('<div class="left"><h3>Unavailable machines</h3><ul>');
-    print('<li><i>pinac01-10</i>, reinstalled as desktop machines</li>');
     foreach($not_responding as $key) {
         printf('<li><a href="#%s">%s</a>, no data received since %s</li>',
                 $key, $key, date('l jS \of F, G:i:s', round(@$time[$key])));
